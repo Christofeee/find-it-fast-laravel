@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -39,5 +39,13 @@ Route::group([
     'prefix' => 'admin'
 
 ], function ($router) {
-    Route::get('/customers', [TestController::class, 'test']);
+
+});
+Route::group([
+
+    'middleware' => 'role:customer,admin',
+
+], function ($router) {
+    Route::get('/products', [ProductController::class, 'index']);
+    // Route::resource(name:'products', controller:ProductController::class);
 });
